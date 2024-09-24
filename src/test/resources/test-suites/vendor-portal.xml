@@ -1,0 +1,29 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.1.dtd" >
+<suite name="vendor-portal-suite" parallel="tests" thread-count="3">
+    <test name="vendor-portal-sams-user">
+        <parameter name="testDataPath" value="test-data/vendor-portal/samUser.json"/>
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.chrisguru.tests.vendorPortal.VendorPortalTest" />
+        </classes>
+
+    </test>
+
+    <test name="vendor-portal-mike-user">
+        <parameter name="testDataPath" value="test-data/vendor-portal/mikeUser.json"/>
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="com.chrisguru.tests.vendorPortal.VendorPortalTest" />
+        </classes>
+
+    </test>>
+
+    <test name="vendor-portal-john-user">
+        <parameter name="testDataPath" value="test-data/vendor-portal/johnUser.json"/>
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.chrisguru.tests.vendorPortal.VendorPortalTest" />
+        </classes>
+
+    </test>>
+</suite>

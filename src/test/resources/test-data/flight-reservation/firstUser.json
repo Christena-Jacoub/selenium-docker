@@ -1,0 +1,12 @@
+{
+  "firstName": "docker",
+  "lastName": "selenium",
+  "email": "selenium@gmail.com",
+  "password": "1234",
+  "street": "test st",
+  "city": "LA",
+  "state": "Alabama",
+  "zip": "3456",
+  "noOfPassenger": "2",
+  "expectedPrice": "$1169 USD"
+}
