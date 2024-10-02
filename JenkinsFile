@@ -1,0 +1,26 @@
+pipeline{  //// this is how we create a pipline
+    agent any // this is used to determine which agent name I'll use>> here we say any agent
+    stages{
+       stage("Build Jars"){ //we can consider the stage as a test in the testng
+            steps{
+                sh "mvn clean package -DskipTests"
+            }
+       }
+
+
+        stage("Build image"){
+            steps{
+                sh "docker build -t=christenajacoub82/selenium ."
+            }
+        }
+
+
+        stage("Push image to dockerHub"){
+            steps{
+                sh "docker push christenajacoub82/selenium"
+            }
+        }
+
+    }
+
+}
