@@ -16,11 +16,25 @@ pipeline{  //// this is how we create a pipline
 
 
         stage("Push image to dockerHub"){
+            //// this stuff is added here if dockerhub needs the credentials to login before push the image
+            // in my case I didn't face this, but just put this here for documentation lecture 179, 180
+            environment{
+                DOCKER_HUB  = credentials('dockerhub-creds')
+            }
             steps{
+               // sh 'docker login -u ${DOCKER_HUB_USR} -p ${DOCKER_HUB_PSW}'
+                ////////// updated instead of previous step since we r getting an error that, it's unsecure to use the password like this
+                sh 'echo ${DOCKER_HUB_PSW}| docker login -u ${DOCKER_HUB_USR} --password-stdin'
                 sh "docker push christenajacoub82/selenium"
             }
-        }
 
+        }
+    }
+
+    post{ // after execution we need to logout of the dockerhub
+        always{
+                sh "docker logout"
+        }
     }
 
 }
