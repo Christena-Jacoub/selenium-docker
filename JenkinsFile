@@ -10,7 +10,7 @@ pipeline{  //// this is how we create a pipline
 
         stage("Build image"){
             steps{
-                sh "docker build -t=christenajacoub82/selenium ."
+                sh "docker build -t=christenajacoub82/selenium:latest ."// this is defined the tag as latest
             }
         }
 
@@ -25,11 +25,14 @@ pipeline{  //// this is how we create a pipline
                // sh 'docker login -u ${DOCKER_HUB_USR} -p ${DOCKER_HUB_PSW}'
                 ////////// updated instead of previous step since we r getting an error that, it's unsecure to use the password like this
                 sh 'echo ${DOCKER_HUB_PSW}| docker login -u ${DOCKER_HUB_USR} --password-stdin'
-                sh "docker push christenajacoub82/selenium"
+                sh "docker push christenajacoub82/selenium:latest"// this will push image with tag latest
+                sh "docker tag christenajacoub82/selenium:latest christenajacoub82/selenium:${env.BUILD_NUMBER}"// this will change the latest tag to the Jenkins build number tag(unique no)
+                sh "docker push christenajacoub82/selenium:${env.BUILD_NUMBER}"// this will push the image again with the new tag
             }
 
         }
     }
+
 
     post{ // after execution we need to logout of the dockerhub
         always{
