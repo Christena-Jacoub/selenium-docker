@@ -82,7 +82,7 @@
                         <selenium.grid.enable>true</selenium.grid.enable>
                     </systemPropertyVariables>
                     <suiteXmlFiles>
-                        <file>src/test/resources/test-suites/flight-reservation-jackson.xml</file>
+                        <file>src/test/resources/test-suites/flight-reservation.xml</file>
                         <file>src/test/resources/test-suites/vendor-portal.xml</file>
                     </suiteXmlFiles>
                     <threadCount>2</threadCount>

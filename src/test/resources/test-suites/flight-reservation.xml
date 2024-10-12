@@ -1,29 +1,16 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.1.dtd" >
-<suite name="flight-reservation-suite">
-    <test name="flight-reservation-count1">
-        <parameter name="noOfPassengers" value="1"/>
-        <parameter name="expectedPrice" value="$584 USD"/>
+<suite name="flight-reservation-suite" parallel="tests" thread-count="2">
+    <test name="flight-reservation-firstUser">
+        <parameter name="testDataPath" value="test-data/flight-reservation/firstUser.json"/>
+        <parameter name="browser" value="chrome"/>
         <classes>
             <class name="com.chrisguru.tests.flightreservation.FlightReservationTest"/>
         </classes>
     </test>>
-    <test name="flight-reservation-count2">
-        <parameter name="noOfPassengers" value="2"/>
-        <parameter name="expectedPrice" value="$1169 USD"/>
-        <classes>
-            <class name="com.chrisguru.tests.flightreservation.FlightReservationTest"/>
-        </classes>
-    </test>>
-    <test name="flight-reservation-count3">
-        <parameter name="noOfPassengers" value="3"/>
-        <parameter name="expectedPrice" value="$1753 USD"/>
-        <classes>
-            <class name="com.chrisguru.tests.flightreservation.FlightReservationTest"/>
-        </classes>
-    </test>>
-    <test name="flight-reservation-count4">
-        <parameter name="noOfPassengers" value="4"/>
-        <parameter name="expectedPrice" value="$2338 USD"/>
+
+    <test name="flight-reservation-secondUser">
+        <parameter name="testDataPath" value="test-data/flight-reservation/secondUser.json"/>
+        <parameter name="browser" value="firefox"/>
         <classes>
             <class name="com.chrisguru.tests.flightreservation.FlightReservationTest"/>
         </classes>
