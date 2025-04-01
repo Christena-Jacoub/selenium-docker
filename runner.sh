@@ -49,6 +49,8 @@ java -cp 'libs/*' \
      -DbrowserStack.enable="${BROWSERSTACK_ENABLED:-false}" \
      -Dselenium.grid.hubHost="${HUB_HOST:-hubService}" \
      -Dbrowser="${BROWSER:-chrome}" \
+     -DBROWSERSTACK_USERNAME=${BROWSERSTACK_USERNAME} \
+     -DBROWSERSTACK_ACCESS_KEY=${BROWSERSTACK_ACCESS_KEY} \
      org.testng.TestNG \
      -threadcount "${THREAD_COUNT:-1}" \
      test-suites/"${TEST_SUITE}"
