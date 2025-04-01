@@ -104,8 +104,8 @@ public abstract class BaseTest {
         }
         else if(Boolean.parseBoolean(Config.getKeyValue(Constants.BROWSERSTACK_ENABLED))){
             String urlFormat= Config.getKeyValue(Constants.BROWSERSTACK_URL);
-            String userID = System.getProperty("BROWSERSTACK_USERNAME");
-            String userKey = System.getProperty("BROWSERSTACK_ACCESS_KEY");
+            String userID = Config.getKeyValue(Constants.BROWSERSTACK_USERNAME);
+            String userKey = Config.getKeyValue(Constants.BROWSERSTACK_ACCESS_KEY);
             log.info("The userID is, "+ userID+" The userKey is: "+ userKey);
             url = String.format(urlFormat,userID,userKey);
         }

@@ -14,5 +14,7 @@ public class Constants {
     public static final String VENDOR_PORTAL_URL= "vendorPortal.url";
     public static final String BROWSERSTACK_ENABLED= "browserStack.enable";
     public static final String BROWSERSTACK_URL= "browserStack.urlFormat";
+    public static final String BROWSERSTACK_USERNAME="browserStack.username";
+    public static final String BROWSERSTACK_ACCESS_KEY="browserStack.accessKey";
 
 }

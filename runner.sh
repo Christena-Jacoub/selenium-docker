@@ -16,6 +16,8 @@ echo "THREAD_COUNT  : ${THREAD_COUNT:-1}"
 echo "TEST_SUITE    : ${TEST_SUITE}"
 echo "GRID_ENABLED    : ${GRID_ENABLED:-true}"
 echo "BROWSERSTACK_ENABLED    : ${BROWSERSTACK_ENABLED:-false}"
+echo "DBROWSERSTACK_USERNAME : ${BROWSERSTACK_USERNAME}"
+echo "DBROWSERSTACK_ACCESS_KEY : ${BROWSERSTACK_ACCESS_KEY}"
 echo "-------------------------------------------"
 
 # Check if GRID_ENABLED is true before starting the while loop
@@ -49,8 +51,8 @@ java -cp 'libs/*' \
      -DbrowserStack.enable="${BROWSERSTACK_ENABLED:-false}" \
      -Dselenium.grid.hubHost="${HUB_HOST:-hubService}" \
      -Dbrowser="${BROWSER:-chrome}" \
-     -DBROWSERSTACK_USERNAME=${BROWSERSTACK_USERNAME} \
-     -DBROWSERSTACK_ACCESS_KEY=${BROWSERSTACK_ACCESS_KEY} \
+     -DbrowserStack.username=${BROWSERSTACK_USERNAME} \
+     -DbrowserStack.accessKey=${BROWSERSTACK_ACCESS_KEY} \
      org.testng.TestNG \
      -threadcount "${THREAD_COUNT:-1}" \
      test-suites/"${TEST_SUITE}"
