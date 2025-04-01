@@ -47,7 +47,7 @@ fi
 echo "Running the test..."
 
 java -cp 'libs/*' \
-     -Dselenium.grid.enabled="${GRID_ENABLED:-true}" \
+     -Dselenium.grid.enable="${GRID_ENABLED:-true}" \
      -DbrowserStack.enable="${BROWSERSTACK_ENABLED:-false}" \
      -Dselenium.grid.hubHost="${HUB_HOST:-hubService}" \
      -Dbrowser="${BROWSER:-chrome}" \
