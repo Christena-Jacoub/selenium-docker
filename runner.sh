@@ -18,25 +18,32 @@ echo "GRID_ENABLED    : ${GRID_ENABLED:-true}"
 echo "BROWSERSTACK_ENABLED    : ${BROWSERSTACK_ENABLED:-false}"
 echo "-------------------------------------------"
 
-# Do not start the tests immediately. Hub has to be ready with browser nodes
-echo "Checking if hub is ready..!"
-count=0
-while [ "$( curl -s http://${HUB_HOST:-hubService}:4444/status | jq -r .value.ready )" != "true" ]
-do
-  count=$((count+1))
-  echo "Attempt: ${count}"
-  if [ "$count" -ge 30 ]
-  then
-      echo "**** HUB IS NOT READY WITHIN 30 SECONDS ****"
-      exit 1
-  fi
-  sleep 1
-done
+# Check if GRID_ENABLED is true before starting the while loop
+if [ "${GRID_ENABLED:-true}" == "true" ]; then
+    # Do not start the tests immediately. Hub has to be ready with browser nodes
+    echo "Checking if hub is ready..!"
+    count=0
+    while [ "$( curl -s http://${HUB_HOST:-hubService}:4444/status | jq -r .value.ready )" != "true" ]
+    do
+        count=$((count+1))
+        echo "Attempt: ${count}"
+        if [ "$count" -ge 30 ]
+        then
+            echo "**** HUB IS NOT READY WITHIN 30 SECONDS ****"
+            exit 1
+        fi
+        sleep 1
+    done
 
-# At this point, selenium grid should be up!
-echo "Selenium Grid is up and running. Running the test...."
+    # At this point, selenium grid should be up!
+    echo "Selenium Grid is up and running."
+else
+    echo "Grid is not enabled. Skipping Selenium Grid readiness check..."
+fi
 
-# Start the java command
+# Start the Java command to run the tests
+echo "Running the test..."
+
 java -cp 'libs/*' \
      -Dselenium.grid.enabled="${GRID_ENABLED:-true}" \
      -DbrowserStack.enable="${BROWSERSTACK_ENABLED:-false}" \
