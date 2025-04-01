@@ -12,5 +12,7 @@ public class Constants {
     public static final String IMAGE_FORMAT="<img width=700px src='data:image/png;base64,%s' />";
     public static final String FLIGHT_RESERVATION_URL= "flightReservation.url";
     public static final String VENDOR_PORTAL_URL= "vendorPortal.url";
+    public static final String BROWSERSTACK_ENABLED= "browserStack.enable";
+    public static final String BROWSERSTACK_URL= "browserStack.urlFormat";
 
 }

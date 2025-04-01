@@ -41,11 +41,12 @@ public abstract class BaseTest {
         ///if I want to define the browser in the POM so the same browser will be applied across all the tests,
        //String browser=System.getProperty("browser"); /// this will get the value of browser node in the POM file
         /// I commented the prev step since if I define the browser in the POM so the same browser will be applied across all the tests,
-        log.info( "The Constant value: {}, The ConfigKey value is {},  The GRID ENABLED VALUE IS: {}",Constants.GRID_ENABLED,Config.getKeyValue(Constants.GRID_ENABLED) ,Boolean.parseBoolean(Config.getKeyValue(Constants.GRID_ENABLED)));
+        log.info( "The BrowserStack enabled? "+Boolean.parseBoolean(Config.getKeyValue(Constants.BROWSERSTACK_ENABLED)));
         //if(Boolean.getBoolean(Config.getKeyValue(Constants.GRID_ENABLED))) { /// if I used System.property, it will return string but I need it as a boolean so I used t like that
-        if(Boolean.parseBoolean(Config.getKeyValue(Constants.GRID_ENABLED))) {
+        if(Boolean.parseBoolean(Config.getKeyValue(Constants.GRID_ENABLED))||
+                (Boolean.parseBoolean(Config.getKeyValue(Constants.BROWSERSTACK_ENABLED)))) {
             this.driver=getRemoteWebDriver();
-        }else{
+        } else{
             this.driver=getLocalWebDriver();
         }
         context.setAttribute(Constants.DRIVER,driver);
@@ -82,17 +83,34 @@ public abstract class BaseTest {
                 capabilities=new ChromeOptions();
                 break;
         }
-        String urlFormat= Config.getKeyValue(Constants.GRID_URL_FORMAT);
-        String urlHost=Config.getKeyValue(Constants.GRID_HUB_HOST);
-        String url=String.format(urlFormat,urlHost);
-        log.info("The remote grid url is: {}", url);
+        //String urlFormat= Config.getKeyValue(Constants.GRID_URL_FORMAT);
+        //String urlHost=Config.getKeyValue(Constants.GRID_HUB_HOST);
+        //String url=String.format(urlFormat,urlHost);
+        log.info("The remote url is: {}", getRemoteURL());
         try {
-            return new RemoteWebDriver(new URL(url),capabilities);
+            return new RemoteWebDriver(new URL(getRemoteURL()),capabilities);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
     }
 
+    public String getRemoteURL(){
+        String url="";
+        if(Boolean.parseBoolean(Config.getKeyValue(Constants.GRID_ENABLED)))
+        {
+            String urlFormat= Config.getKeyValue(Constants.GRID_URL_FORMAT);
+            String urlHost=Config.getKeyValue(Constants.GRID_HUB_HOST);
+            url=String.format(urlFormat,urlHost);
+        }
+        else if(Boolean.parseBoolean(Config.getKeyValue(Constants.BROWSERSTACK_ENABLED))){
+            String urlFormat= Config.getKeyValue(Constants.BROWSERSTACK_URL);
+            String userID= System.getenv("BROWSERSTACK_USERNAME");
+            String userKey=System.getenv("BROWSERSTACK_ACCESS_KEY");
+            log.info("The userID is, "+ userID+" The userKey is: "+ userKey);
+            url = String.format(urlFormat,userID,userKey);
+        }
+        return url;
+    }
     @AfterTest
     public void quiteDriver(){
         driver.quit();

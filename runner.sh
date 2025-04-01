@@ -14,6 +14,8 @@ echo "HUB_HOST      : ${HUB_HOST:-hubService}"
 echo "BROWSER       : ${BROWSER:-chrome}"
 echo "THREAD_COUNT  : ${THREAD_COUNT:-1}"
 echo "TEST_SUITE    : ${TEST_SUITE}"
+echo "GRID_ENABLED    : ${GRID_ENABLED:-true}"
+echo "BROWSERSTACK_ENABLED    : ${BROWSERSTACK_ENABLED:-false}"
 echo "-------------------------------------------"
 
 # Do not start the tests immediately. Hub has to be ready with browser nodes
@@ -36,7 +38,8 @@ echo "Selenium Grid is up and running. Running the test...."
 
 # Start the java command
 java -cp 'libs/*' \
-     -Dselenium.grid.enabled=true \
+     -Dselenium.grid.enabled="${GRID_ENABLED:-true}" \
+     -DbrowserStack.enable="${BROWSERSTACK_ENABLED:-false}" \
      -Dselenium.grid.hubHost="${HUB_HOST:-hubService}" \
      -Dbrowser="${BROWSER:-chrome}" \
      org.testng.TestNG \

@@ -79,7 +79,8 @@
 <!--                    mvn clean test -Dbrowser=chrome -Dselenium.grid.enable=true-->
                     <systemPropertyVariables>
                         <browser>chrome</browser>
-                        <selenium.grid.enable>true</selenium.grid.enable>
+                        <selenium.grid.enable>false</selenium.grid.enable>
+                        <browserStack.enable>true</browserStack.enable>
                     </systemPropertyVariables>
                     <suiteXmlFiles>
                         <file>src/test/resources/test-suites/flight-reservation.xml</file>
